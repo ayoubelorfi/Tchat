@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block title %}T'chat{% endblock %}
+
+{% block css %}{% endblock %}
+
+{% block body %}
+
+
+<!-- layout -->
+<div class="layout">
+
+    <!-- navigation -->
+    <nav class="navigation">
+        <div class="nav-group">
+            <ul>
+                <li>
+                    <a data-navigation-target="" class="active" href="/tchat/">
+                        <i class="fa fa-home"></i>
+                    </a>
+                </li>
+                <li>
+                    <a data-navigation-target="chats" class="" href="#">
+                        <i class="fa fa-comments"></i>
+                    </a>
+                </li>
+                <li class="brackets">
+                    <a data-navigation-target="friends" href="#" class="notifiy_badge">
+                        <i class="fa fa-users"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="./signout">
+                        <i class="fa fa-power-off"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- ./ navigation -->
+
+    <!-- content -->
+    <div class="content">
+      
+        <!-- sidebar group -->
+        <div class="sidebar-group">
+                <h2 class="myspace_title">
+                    
+                    <p class=" ">
+                        <figure class="avatar user">
+                            <span class="avatar-title bg-success rounded-circle" >{{ session.username | first  }}</span>
+                        </figure>  {{ session.username }}</p>
+                </h2><br>
+            <!-- Chats sidebar -->
+            
+            <div id="chats" class="sidebar active">
+                
+                <header>
+                    
+                    <span><i class="fa fa-comments"></i> Messages</span>
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <a class="btn btn-primary" data-toggle="tooltip" title="" href="#"
+                                data-navigation-target="friends" data-original-title="New Chat">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </li> 
+                    </ul>
+                </header>
+                <div class="sidebar-body" id="list-message">
+                    <ul class="list-group list-group-flush">
+                        {% for msg in messages %}
+                    
+                            <li class="list-group-item user_chat" id="{{ msg.user.id_crypt }}">
+                                <figure class="avatar {% if(msg.user.connected == 1) %} avatar-state-success {% endif %}">
+                                    <span class="avatar-title bg-success rounded-circle"
+                                    style="background: #2216e0!important;">{{ msg.user.username | first  }}</span>
+                                </figure>
+                                <div class="users-list-body">
+                                    <h5>{{ msg.user.username }}</h5>
+                                    <p>{{ msg.message.content }}</p>
+                    
+                                    {% if(msg.message.seen == 0 and msg.message.sender != session.iduser and msg.messageNumber != 0) %}
+                                        <div class="users-list-action">
+                                            <div class="new-message-count">{{ msg.messageNumber }}</div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </li>
+                    
+                        {% else %}
+                    
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <!-- ./ Chats sidebar -->
+
+            <!-- Contacts sidebar -->
+            <div id="friends" class="sidebar">
+                <header>
+                    <span><i class="fa fa-users"></i> Friends</span> 
+                </header>
+                <form>
+                    <input type="text" class="form-control" id="search" placeholder="Search friends">
+                </form>
+                <div class="sidebar-body" id="loadfriends">
+                    <ul class="list-group list-group-flush">
+                        {% for c in contacts %}
+                        <li class="list-group-item user_chat" id="{{ c.id_crypt }}">
+                            <figure class="avatar {% if(c.connected == 1) %} avatar-state-success {% endif %}">
+                                <span class="avatar-title bg-success rounded-circle"
+                                    style="background: #2216e0!important;">{{ c.username | first }}</span>
+                            </figure>
+                            <div class="users-list-body">
+                                <h5>{{ c.username }}</h5>
+                                <p>{{ c.email }}</p>
+                    
+                            </div>
+                        </li>
+                        {% else %}
+                    
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <!-- ./ Contacts sidebar -->
+
+
+        </div>
+        <!-- ./ sidebar group -->
+
+        <!-- chat -->
+        <div class="img_chat"></div>
+        <div class="chat" id="chat">
+            
+        </div>
+        <!-- ./ chat -->
+
+    </div>
+    <!-- ./ content -->
+
+</div>
+<!-- ./ layout -->
+
+{% endblock %}
+
+{% block js %}
+<script src="assets/js/chats.js"></script>
+{% endblock %}

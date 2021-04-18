@@ -1,0 +1,24 @@
+<ul class="list-group list-group-flush">
+    {% for msg in messages %}
+
+        <li class="list-group-item user_chat" id="{{ msg.user.id_crypt }}">
+            <figure class="avatar {% if(msg.user.connected == 1) %} avatar-state-success {% endif %}">
+                <span class="avatar-title bg-success rounded-circle"
+                style="background: #2216e0!important;">{{ msg.user.username | first  }}</span>
+            </figure>
+            <div class="users-list-body">
+                <h5>{{ msg.user.username }}</h5>
+                <p>{{ msg.message.content }}</p>
+
+                {% if(msg.message.seen == 0 and msg.message.sender != session.iduser and msg.messageNumber != 0) %}
+                    <div class="users-list-action">
+                        <div class="new-message-count">{{ msg.messageNumber }}</div>
+                    </div>
+                {% endif %}
+            </div>
+        </li>
+
+    {% else %}
+
+    {% endfor %}
+</ul>

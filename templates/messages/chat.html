@@ -1,0 +1,50 @@
+<div class="chat-header">
+        <div class="chat-header-user">
+            <figure class="avatar {% if(user.connected == 1) %} avatar-state-success {% endif %}">
+                <span class="avatar-title bg-success rounded-circle" style="background: #2216e0!important;">{{ user.username | first }}</span>
+            </figure>
+            <div>
+                <h5>{{ user.username }}</h5>
+                <small class="text-greenlight">
+                    {% if(user.connected == 1) %}
+                        <i>Online</i>
+                    {% endif %}
+                </small>
+            </div>
+        </div>
+    </div>
+    <div class="chat-body" tabindex="2" style="overflow: hidden; outline: none;" id="cnvtn-1">
+        <div class="messages">
+            
+            {% for m in conversation %}
+                {% if(m.sender == session.iduser) %}
+                    <div class="message-item outgoing-message">
+                        <div class="message-content">
+                            {{ m.content }}
+                        </div>
+                        <div class="message-action">
+                            {{ m.date }} <i class="{% if(m.date == 1) %} ti-double-check {% else %} ti-check {% endif %}"></i>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="message-item ">
+                        <div class="message-content">{{ m.content }}</div>
+                        <div class="message-action">{{ m.date }} </div>
+                    </div>
+                {% endif %}
+                
+            {% endfor %}
+        </div>
+    </div>
+    <div class="chat-footer">
+        <form action="./chat/send" method="POST">
+            <input type="hidden" name="id" value="{{ user.id_crypt }}" id="idd">
+            <input type="text" class="form-control" placeholder="Taper message"
+                aria-label="Taper message" aria-describedby="button-addon2">
+            <div class="form-buttons">
+                <button class="btn btn-primary btn-floating" type="submit">
+                    <i class="fa fa-send"></i>
+                </button>
+            </div>
+        </form>
+    </div>

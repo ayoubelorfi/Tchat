@@ -1,0 +1,22 @@
+
+        <div class="messages">
+            
+            {% for m in conversation %}
+                {% if(m.sender == session.iduser) %}
+                    <div class="message-item outgoing-message">
+                        <div class="message-content">
+                            {{ m.content }}
+                        </div>
+                        <div class="message-action">
+                            {{ m.date }} <i class="{% if(m.sent == 1) %} ti-double-check {% else %} ti-check {% endif %}"></i>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="message-item ">
+                        <div class="message-content">{{ m.content }}</div>
+                        <div class="message-action">{{ m.date }} </div>
+                    </div>
+                {% endif %}
+                
+            {% endfor %}
+        </div>

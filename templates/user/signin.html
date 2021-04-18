@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}T'chat - Authentification{% endblock %}
+
+
+{% block body %}
+
+    <div class="form-membership">
+        <div class="form-wrapper">
+
+            <h5>Se connecter</h5>
+
+            <!-- form -->
+            <form action="signin/up" method="POST">
+                <div class="form-group input-group-lg">
+                    <input type="text" name="username" class="form-control" placeholder="Nom d'utilisateur" required="" autofocus="">
+                </div>
+                <div class="form-group input-group-lg">
+                    <input type="password" name="password" class="form-control" placeholder="Mot de passe" required="">
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Se connecter</button>
+                <hr>
+                <p class="text-muted">Vous n'avez pas de compte?</p>
+                <a href="./signup" class="btn btn-outline-light btn-sm">S'inscrire maintenant!</a>
+            </form>
+            <!-- ./ form -->
+
+        </div>
+    </div>
+{% endblock %}

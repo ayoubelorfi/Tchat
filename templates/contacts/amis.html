@@ -1,0 +1,17 @@
+<ul class="list-group list-group-flush">
+    {% for c in contacts %}
+    <li class="list-group-item user_chat" id="{{ c.id_crypt }}">
+        <figure class="avatar {% if(c.connected == 1) %} avatar-state-success {% endif %}">
+            <span class="avatar-title bg-success rounded-circle"
+                style="background: #2216e0!important;">{{ c.username | first }}</span>
+        </figure>
+        <div class="users-list-body">
+            <h5>{{ c.username }}</h5>
+            <p>{{ c.email }}</p>
+
+        </div>
+    </li>
+    {% else %}
+
+    {% endfor %}
+</ul>
