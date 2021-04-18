@@ -30,7 +30,7 @@ $router = new Core\Router();
 
 
 
-$connection = Db::getInstance();
+
 
 // Add the routes
 $router->add('', ['controller' => 'HomeController', 'action' => 'index']);
